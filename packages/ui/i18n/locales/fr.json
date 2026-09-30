@@ -184,6 +184,8 @@
   "payload": "Charge utile",
   "details": "Détails",
   "endpointURL": "URL du point de terminaison",
+  "username": "Nom d’utilisateur",
+  "passwordManagerUsernameHint": "Le nom d’utilisateur correspond à l’URL du backend pour le gestionnaire de mots de passe. Mihomo vérifie le secret.",
   "secret": "Secret",
   "statusConnecting": "Connexion…",
   "statusProbing": "Détection du backend par défaut…",

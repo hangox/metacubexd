@@ -184,6 +184,8 @@
   "payload": "ペイロード",
   "details": "詳細",
   "endpointURL": "エンドポイント URL",
+  "username": "ユーザー名",
+  "passwordManagerUsernameHint": "パスワードマネージャー用のユーザー名はバックエンド URL と同じです。Mihomo はシークレットで認証します。",
   "secret": "シークレット",
   "statusConnecting": "接続中…",
   "statusProbing": "デフォルトのバックエンドを探索中…",

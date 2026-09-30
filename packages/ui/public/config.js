@@ -1,4 +1,4 @@
 window.__METACUBEXD_CONFIG__ = {
-  defaultBackendURL: '',
+  defaultBackendURL: 'https://metacubexd.47lab.cn',
   githubToken: '',
 }

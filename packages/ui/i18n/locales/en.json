@@ -184,6 +184,8 @@
   "payload": "Payload",
   "details": "Details",
   "endpointURL": "Endpoint URL",
+  "username": "Username",
+  "passwordManagerUsernameHint": "The username matches the backend URL for password-manager autofill. Mihomo authenticates with the secret.",
   "secret": "Secret",
   "statusConnecting": "Connecting…",
   "statusProbing": "Probing default backend…",

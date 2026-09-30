@@ -184,6 +184,8 @@
   "payload": "페이로드",
   "details": "세부정보",
   "endpointURL": "엔드포인트 URL",
+  "username": "사용자 이름",
+  "passwordManagerUsernameHint": "비밀번호 관리자용 사용자 이름은 백엔드 URL과 같습니다. Mihomo는 시크릿으로 인증합니다.",
   "secret": "시크릿",
   "statusConnecting": "연결 중…",
   "statusProbing": "기본 백엔드 확인 중…",

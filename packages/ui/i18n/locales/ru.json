@@ -184,6 +184,8 @@
   "payload": "Содержимое",
   "details": "Детали",
   "endpointURL": "URL эндпоинта",
+  "username": "Имя пользователя",
+  "passwordManagerUsernameHint": "Имя пользователя совпадает с URL бэкенда для менеджера паролей; Mihomo проверяет секрет.",
   "secret": "Секрет",
   "statusConnecting": "Подключение…",
   "statusProbing": "Проверка бэкенда по умолчанию…",

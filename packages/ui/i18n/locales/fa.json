@@ -184,6 +184,8 @@
   "payload": "بار",
   "details": "جزئیات",
   "endpointURL": "URL نقطه پایانی",
+  "username": "نام کاربری",
+  "passwordManagerUsernameHint": "نام کاربری برای تطبیق در مدیر گذرواژه با نشانی backend یکسان است؛ Mihomo با secret احراز هویت می‌کند.",
   "secret": "رمز",
   "statusConnecting": "در حال اتصال…",
   "statusProbing": "در حال بررسی بک‌اند پیش‌فرض…",

@@ -1,0 +1,48 @@
+name: build-static-ui
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/build-static-ui.yml'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'packages/ui/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6.1.0
+
+      - uses: actions/setup-node@v7
+        with:
+          cache: pnpm
+          node-version: latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build static dashboard
+        run: pnpm --filter @metacubexd/ui generate
+        env:
+          NUXT_APP_BASE_URL: /ui/
+
+      - name: Package static dashboard
+        run: tar -czf metacubexd-static.tar.gz -C packages/ui/.output/public .
+
+      - uses: actions/upload-artifact@v7.0.1
+        with:
+          name: metacubexd-static-${{ github.sha }}
+          path: metacubexd-static.tar.gz
+          if-no-files-found: error
+          retention-days: 14

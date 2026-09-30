@@ -22,7 +22,7 @@ import {
 
 export const useConfigStore = defineStore('config', () => {
   // Theme
-  const curTheme = useLocalStorage<(typeof themes)[number]>('theme', 'sunset')
+  const curTheme = useLocalStorage<(typeof themes)[number]>('theme', 'light')
   const autoSwitchTheme = useLocalStorage('autoSwitchTheme', false)
   const favDayTheme = useLocalStorage<(typeof themes)[number]>(
     'favDayTheme',
@@ -331,7 +331,7 @@ export const useConfigStore = defineStore('config', () => {
     useMobileBottomNav.value = true
     favDayTheme.value = 'nord'
     favNightTheme.value = 'sunset'
-    curTheme.value = 'sunset'
+    curTheme.value = 'light'
     defaultPage.value = 'overview'
     onboardingDismissed.value = false
     enableDataUsageTracking.value = true

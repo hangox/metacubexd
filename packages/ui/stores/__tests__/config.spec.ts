@@ -25,6 +25,24 @@ const localStorageMock = (() => {
 
 vi.stubGlobal('localStorage', localStorageMock)
 
+describe('theme defaults', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+    localStorageMock.clear()
+  })
+
+  it('defaults to the light theme on a fresh install', () => {
+    expect(useConfigStore().curTheme).toBe('light')
+  })
+
+  it('resets the theme to light', () => {
+    const store = useConfigStore()
+    store.curTheme = 'sunset'
+    store.resetXdConfig()
+    expect(store.curTheme).toBe('light')
+  })
+})
+
 describe('proxies display mode migration', () => {
   beforeEach(() => {
     setActivePinia(createPinia())

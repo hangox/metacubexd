@@ -577,7 +577,16 @@ describe('e2E Page Tests', () => {
 
   describe('setup Page', () => {
     it('should display setup form with inputs', async () => {
-      const currentPage = await gotoAppPath(page, '/setup')
+      if (!browser) throw new Error('Playwright browser was not initialized')
+      const setupContext = await browser.newContext({
+        viewport: { width: 1920, height: 1080 },
+        deviceScaleFactor: 1,
+      })
+      const currentPage = await setupContext.newPage()
+      await currentPage.goto(`${BASE_URL}/#/setup`, {
+        waitUntil: 'domcontentloaded',
+        timeout: PAGE_LOAD_TIMEOUT,
+      })
 
       // Wait for setup form
       await currentPage.waitForSelector('#url', {
@@ -594,11 +603,28 @@ describe('e2E Page Tests', () => {
       await expect(currentPage.locator('#secret').isVisible()).resolves.toBe(
         true,
       )
+      const username = currentPage.locator('#username')
+      await expect(username.isVisible()).resolves.toBe(true)
+      await expect(username.getAttribute('name')).resolves.toBe('username')
+      await expect(username.getAttribute('autocomplete')).resolves.toBe(
+        'username',
+      )
+      await expect(
+        currentPage.locator('#url').getAttribute('autocomplete'),
+      ).resolves.toBe('url')
+      await expect(
+        currentPage.locator('#secret').getAttribute('autocomplete'),
+      ).resolves.toBe('current-password')
+      await currentPage.locator('#url').fill('https://metacubexd.47lab.cn')
+      await expect
+        .poll(() => username.inputValue())
+        .toBe('https://metacubexd.47lab.cn')
 
       // Check for submit button
       await expect(
         currentPage.getByRole('button', { name: 'Add' }).isVisible(),
       ).resolves.toBe(true)
+      await setupContext.close()
     })
   })
 

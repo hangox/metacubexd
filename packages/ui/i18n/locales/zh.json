@@ -184,6 +184,8 @@
   "payload": "内容",
   "details": "详情",
   "endpointURL": "后端地址",
+  "username": "用户名",
+  "passwordManagerUsernameHint": "用户名与后端地址相同，供密码管理器匹配；Mihomo 实际只使用密钥验证。",
   "secret": "密钥",
   "statusConnecting": "连接中…",
   "statusProbing": "正在探测默认后端…",

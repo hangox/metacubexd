@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconLink, IconLock } from '@tabler/icons-vue'
+import { IconLink, IconLock, IconUser } from '@tabler/icons-vue'
 import { FALLBACK_BACKEND_URL } from '~/constants'
 
 defineProps<{ submitLabel: string }>()
@@ -18,7 +18,17 @@ const {
   autoLogin,
 } = useConnect()
 
-const formData = reactive({ url: '', secret: '' })
+const formData = reactive({ url: '', username: '', secret: '' })
+
+// 用户名默认与后端地址一致，供 Bitwarden 匹配；它不会发送给 Mihomo。
+watch(
+  () => formData.url,
+  (url, previousUrl) => {
+    if (!formData.username || formData.username === previousUrl) {
+      formData.username = url
+    }
+  },
+)
 
 // Once the user touches the form, a lucky background default-probe hit must not
 // navigate away from under them.
@@ -161,8 +171,9 @@ defineExpose({
           type="url"
           class="w-full rounded-lg border border-base-content/15 bg-base-100 px-4 py-3 text-base text-base-content transition-colors duration-200 placeholder:text-base-content/80"
           placeholder="http(s)://{hostname}:{port}"
+          name="backend-url"
           list="defaultEndpoints"
-          autocomplete="on"
+          autocomplete="url"
         />
         <datalist id="defaultEndpoints">
           <option :value="FALLBACK_BACKEND_URL" />
@@ -184,15 +195,27 @@ defineExpose({
         </datalist>
       </div>
 
-      <!-- Hidden username field for password managers -->
-      <input
-        type="text"
-        name="username"
-        autocomplete="username"
-        class="sr-only"
-        aria-hidden="true"
-        tabindex="-1"
-      />
+      <!-- 显示与后端地址一致的用户名，供密码管理器按登录凭据填充。 -->
+      <div class="flex flex-col gap-2">
+        <label
+          class="flex items-center gap-2 text-sm font-medium text-base-content"
+          for="username"
+        >
+          <IconUser :size="16" />
+          <span>{{ t('username') }}</span>
+        </label>
+        <input
+          id="username"
+          v-model="formData.username"
+          name="username"
+          type="text"
+          class="w-full rounded-lg border border-base-content/15 bg-base-100 px-4 py-3 text-base text-base-content transition-colors duration-200 placeholder:text-base-content/80"
+          autocomplete="username"
+        />
+        <p class="text-xs text-base-content/80">
+          {{ t('passwordManagerUsernameHint') }}
+        </p>
+      </div>
 
       <!-- Secret -->
       <div class="flex flex-col gap-2">
@@ -206,6 +229,7 @@ defineExpose({
         <input
           id="secret"
           v-model="formData.secret"
+          name="password"
           type="password"
           class="w-full rounded-lg border border-base-content/15 bg-base-100 px-4 py-3 text-base text-base-content transition-colors duration-200 placeholder:text-base-content/80"
           placeholder="secret"
